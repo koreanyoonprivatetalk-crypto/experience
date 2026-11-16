@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>한국어 작문 테스트 (10문항)</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f7f6;
+            margin: 0;
+            padding: 20px;
+            color: #333;
+        }
+        .container {
+            max-width: 750px;
+            margin: 0 auto;
+            background: #fff;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+        .subtitle {
+            text-align: center;
+            color: #7f8c8d;
+            margin-bottom: 30px;
+        }
+        .question-card {
+            background: #f9f9f9;
+            border-left: 5px solid #3498db;
+            padding: 15px 20px;
+            margin-bottom: 20px;
+            border-radius: 0 8px 8px 0;
+        }
+        .question-title {
+            font-weight: bold;
+            font-size: 1.1em;
+            margin-bottom: 8px;
+            color: #2980b9;
+        }
+        .prompt-text {
+            margin-bottom: 10px;
+            font-size: 1em;
+        }
+        input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            font-size: 1em;
+            outline: none;
+            transition: border 0.3s;
+        }
+        input[type="text"]:focus {
+            border-color: #3498db;
+        }
+        .feedback {
+            margin-top: 8px;
+            font-size: 0.9em;
+            font-weight: bold;
+        }
+        .correct { color: #27ae60; }
+        .incorrect { color: #c0392b; }
+        
+        .btn-container {
+            text-align: center;
+            margin-top: 30px;
+        }
+        button {
+            background-color: #3498db;
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            font-size: 1.1em;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        button:hover {
+            background-color: #2980b9;
+        }
+        #result-section {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 1.2em;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>한국어 작문 시험 (10문항)</h1>
+    <div class="subtitle">(으)ㄹ 때, (으)면서, ~에 관심이 많아요/없어요 마스터하기!</div>
+
+    <div id="quiz-form">
+        <!-- 문항 1 -->
+        <div class="question-card" data-answer="밥을 먹을 때 음악을 들어요">
+            <div class="question-title">문항 1. [(으)ㄹ 때]</div>
+            <div class="prompt-text">"I listen to music when I eat rice." (먹다 + ~을 때)</div>
+            <input type="text" placeholder="정답을 한국어로 입력하세요">
+            <div class="feedback"></div>
+        </div>
+
+        <!-- 문항 2 -->
+        <div class="question-card" data-answer="책을 읽으면서 커피를 마셔요">
+            <div class="question-title">문항 2. [(으)면서]</div>
+            <div class="prompt-text">"I drink coffee while reading a book." (읽다 + ~으면서)</div>
+            <input type="text" placeholder="정답을 한국어로 입력하세요">
+            <div class="feedback"></div>
+        </div>
+
+        <!-- 문항 3 -->
+        <div class="question-card" data-answer="한국 문화에 관심이 많아요">
+            <div class="question-title">문항 3.
