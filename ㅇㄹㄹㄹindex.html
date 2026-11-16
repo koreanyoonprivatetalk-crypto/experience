@@ -2,119 +2,246 @@
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
-    <title>한국어 작문 테스트 (10문항)</title>
+    <title>✨ 꿀잼 한국어 작문 퀴즈 ✨</title>
     <style>
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #f4f7f6;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
             margin: 0;
-            padding: 20px;
-            color: #333;
+            padding: 30px 20px;
+            color: #2c3e50;
         }
         .container {
             max-width: 750px;
             margin: 0 auto;
-            background: #fff;
-            padding: 30px;
-            border-radius: 12px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            background: #ffffff;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
         }
         h1 {
             text-align: center;
-            color: #2c3e50;
-            margin-bottom: 10px;
+            color: #ff6b6b;
+            margin-bottom: 5px;
+            font-size: 2em;
         }
         .subtitle {
             text-align: center;
-            color: #7f8c8d;
+            color: #718093;
             margin-bottom: 30px;
+            font-size: 1.1em;
         }
         .question-card {
-            background: #f9f9f9;
-            border-left: 5px solid #3498db;
-            padding: 15px 20px;
+            background: #fdfbf7;
+            border: 2px solid #ffeaa7;
+            padding: 20px;
             margin-bottom: 20px;
-            border-radius: 0 8px 8px 0;
+            border-radius: 12px;
+            transition: transform 0.2s;
+        }
+        .question-card:hover {
+            transform: translateY(-2px);
         }
         .question-title {
             font-weight: bold;
-            font-size: 1.1em;
+            font-size: 1.15em;
             margin-bottom: 8px;
-            color: #2980b9;
+            color: #e17055;
         }
         .prompt-text {
-            margin-bottom: 10px;
-            font-size: 1em;
+            margin-bottom: 12px;
+            font-size: 1.05em;
+            color: #2d3436;
         }
         input[type="text"] {
             width: 100%;
-            padding: 10px;
+            padding: 12px;
             box-sizing: border-box;
-            border: 1px solid #ccc;
-            border-radius: 6px;
-            font-size: 1em;
+            border: 2px solid #dfe6e9;
+            border-radius: 8px;
+            font-size: 1.05em;
             outline: none;
             transition: border 0.3s;
+            background: #fff;
         }
         input[type="text"]:focus {
-            border-color: #3498db;
+            border-color: #ff7675;
         }
-        .feedback {
-            margin-top: 8px;
-            font-size: 0.9em;
-            font-weight: bold;
-        }
-        .correct { color: #27ae60; }
-        .incorrect { color: #c0392b; }
         
         .btn-container {
             text-align: center;
-            margin-top: 30px;
+            margin-top: 35px;
         }
         button {
-            background-color: #3498db;
+            background-color: #ff6b6b;
             color: white;
             border: none;
-            padding: 12px 25px;
-            font-size: 1.1em;
-            border-radius: 6px;
+            padding: 14px 35px;
+            font-size: 1.2em;
+            border-radius: 30px;
             cursor: pointer;
-            transition: background 0.3s;
+            font-weight: bold;
+            box-shadow: 0 4px 15px rgba(255, 107, 107, 0.4);
+            transition: background 0.3s, transform 0.2s;
         }
         button:hover {
-            background-color: #2980b9;
+            background-color: #ee5253;
+            transform: scale(1.03);
         }
+
+        /* 결과 화면 스타일 */
         #result-section {
+            margin-top: 40px;
+            display: none;
+        }
+        .score-banner {
+            background: #ffeaa7;
+            padding: 20px;
+            border-radius: 12px;
             text-align: center;
-            margin-top: 20px;
-            font-size: 1.2em;
+            font-size: 1.4em;
             font-weight: bold;
+            color: #d63031;
+            margin-bottom: 25px;
+        }
+        .comparison-container {
+            margin-top: 20px;
+        }
+        .comparison-card {
+            background: #f1f2f6;
+            padding: 15px 20px;
+            border-radius: 10px;
+            margin-bottom: 15px;
+            border-left: 5px solid #a4b0be;
+        }
+        .comparison-card.is-correct {
+            border-left-color: #2ed573;
+            background: #e8f8f5;
+        }
+        .comparison-card.is-incorrect {
+            border-left-color: #ff4757;
+            background: #fdedec;
+        }
+        .comp-q {
+            font-weight: bold;
+            color: #2f3640;
+            margin-bottom: 5px;
+        }
+        .comp-detail {
+            font-size: 0.95em;
+            margin: 3px 0;
+        }
+        .my-ans { color: #57606f; }
+        .real-ans { color: #2f3640; font-weight: bold; }
+        
+        .retry-btn {
+            background-color: #74b9ff;
+            box-shadow: 0 4px 15px rgba(116, 185, 255, 0.4);
+            margin-top: 20px;
+        }
+        .retry-btn:hover {
+            background-color: #0984e3;
         }
     </style>
 </head>
 <body>
 
 <div class="container">
-    <h1>한국어 작문 시험 (10문항)</h1>
-    <div class="subtitle">(으)ㄹ 때, (으)면서, ~에 관심이 많아요/없어요 마스터하기!</div>
+    <h1>🎯 꿀잼 한국어 작문 퀴즈</h1>
+    <div class="subtitle">열공한 문법 표현들을 직접 쓰고 실력을 확인해봐요! 💪</div>
 
     <div id="quiz-form">
         <!-- 문항 1 -->
-        <div class="question-card" data-answer="밥을 먹을 때 음악을 들어요">
-            <div class="question-title">문항 1. [(으)ㄹ 때]</div>
-            <div class="prompt-text">"I listen to music when I eat rice." (먹다 + ~을 때)</div>
-            <input type="text" placeholder="정답을 한국어로 입력하세요">
-            <div class="feedback"></div>
+        <div class="question-card" data-q="문항 1. [ (으)ㄹ 때 ] 'I listen to music when I eat rice.' (먹다)">
+            <input type="text" placeholder="예: 밥을 먹을 때 음악을 들어요">
         </div>
 
         <!-- 문항 2 -->
-        <div class="question-card" data-answer="책을 읽으면서 커피를 마셔요">
-            <div class="question-title">문항 2. [(으)면서]</div>
-            <div class="prompt-text">"I drink coffee while reading a book." (읽다 + ~으면서)</div>
+        <div class="question-card" data-q="문항 2. [ (으)면서 ] 'I drink coffee while reading a book.' (읽다)">
             <input type="text" placeholder="정답을 한국어로 입력하세요">
-            <div class="feedback"></div>
         </div>
 
         <!-- 문항 3 -->
-        <div class="question-card" data-answer="한국 문화에 관심이 많아요">
-            <div class="question-title">문항 3.
+        <div class="question-card" data-q="문항 3. [ ~에 관심이 많아요 ] 'I am interested in Korean culture.' (한국 문화)">
+            <input type="text" placeholder="정답을 한국어로 입력하세요">
+        </div>
+
+        <!-- 문항 4 -->
+        <div class="question-card" data-q="문항 4. [ ~에 관심이 없어요 ] 'I have no interest in politics.' (정치)">
+            <input type="text" placeholder="정답을 한국어로 입력하세요">
+        </div>
+
+        <!-- 문항 5 -->
+        <div class="question-card" data-q="문항 5. [ (으)ㄹ 때 ] 'I meet my friend when I go to Korea.' (가다)">
+            <input type="text" placeholder="정답을 한국어로 입력하세요">
+        </div>
+
+        <!-- 문항 6 -->
+        <div class="question-card" data-q="문항 6. [ (으)면서 ] 'I listen to music while exercising.' (운동하다)">
+            <input type="text" placeholder="정답을 한국어로 입력하세요">
+        </div>
+
+        <!-- 문항 7 -->
+        <div class="question-card" data-q="문항 7. [ ~에 관심이 많아요 ] 'I am interested in K-pop.' (K-pop)">
+            <input type="text" placeholder="정답을 한국어로 입력하세요">
+        </div>
+
+        <!-- 문항 8 -->
+        <div class="question-card" data-q="문항 8. [ (으)ㄹ 때 ] 'I eat popcorn when watching a movie.' (보다)">
+            <input type="text" placeholder="정답을 한국어로 입력하세요">
+        </div>
+
+        <!-- 문항 9 -->
+        <div class="question-card" data-q="문항 9. [ ~에 관심이 없어요 ] 'I am not interested in sports.' (스포츠)">
+            <input type="text" placeholder="정답을 한국어로 입력하세요">
+        </div>
+
+        <!-- 문항 10 -->
+        <div class="question-card" data-q="문항 10. [ (으)면서 ] 'I sing a song while cooking.' (요리하다)">
+            <input type="text" placeholder="정답을 한국어로 입력하세요">
+        </div>
+
+        <div class="btn-container">
+            <button onclick="checkAnswers()">✨ 다 풀었어요! 채점하기</button>
+        </div>
+    </div>
+
+    <!-- 결과 및 비교 섹션 -->
+    <div id="result-section">
+        <div class="score-banner" id="score-banner-text"></div>
+        <h3 style="color: #2d3436; border-bottom: 2px solid #dfe6e9; padding-bottom: 10px;">📋 내 답변 vs 정답 비교</h3>
+        <div class="comparison-container" id="comparison-list"></div>
+        
+        <div class="btn-container">
+            <button class="retry-btn" onclick="resetQuiz()">🔄 다시 풀기</button>
+        </div>
+    </div>
+</div>
+
+<script>
+    // 정답 데이터 배열
+    const correctAnswers = [
+        "밥을 먹을 때 음악을 들어요",
+        "책을 읽으면서 커피를 마셔요",
+        "한국 문화에 관심이 많아요",
+        "정치에 관심이 없어요",
+        "한국에 갈 때 친구를 만나요",
+        "운동을 하면서 음악을 들어요",
+        "K-pop에 관심이 많아요",
+        "영화 볼 때 팝콘을 먹어요",
+        "스포츠에 관심이 없어요",
+        "요리하면서 노래를 불러요"
+    ];
+
+    function checkAnswers() {
+        const cards = document.querySelectorAll('.question-card');
+        let score = 0;
+        let comparisonHTML = '';
+
+        cards.forEach((card, index) => {
+            const input = card.querySelector('input');
+            const userAnswer = input.value.trim();
+            const cleanUserAns = userAnswer.replace(/[.,]/g, '');
+            const cleanCorrectAns = correctAnswers[index].replace(/[.,]/g, '');
+            
+            const isCorrect = (cleanUserAns === cleanCorrectAns);
