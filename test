@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Korean Writing Quiz</title>
+
+<style>
+body{
+    font-family:Arial, sans-serif;
+    background:#f4f7fb;
+    max-width:900px;
+    margin:auto;
+    padding:40px;
+}
+
+h1{
+    text-align:center;
+}
+
+.question{
+    background:white;
+    padding:20px;
+    margin:20px 0;
+    border-radius:12px;
+    box-shadow:0 2px 8px rgba(0,0,0,.08);
+}
+
+input{
+    width:100%;
+    padding:12px;
+    font-size:18px;
+    margin-top:10px;
+}
+
+button{
+    margin-top:25px;
+    padding:14px 24px;
+    font-size:18px;
+    cursor:pointer;
+}
+
+.correct{
+    color:green;
+    font-weight:bold;
+}
+
+.wrong{
+    color:red;
+    font-weight:bold;
+}
+
+#score{
+    font-size:24px;
+    font-weight:bold;
+    margin-top:30px;
+}
+</style>
+
+</head>
+
+<body>
+
+<h1>Korean Writing Quiz ✏️</h1>
+
+<p>Translate each sentence into Korean.</p>
+
+<div id="quiz"></div>
+
+<button onclick="checkAnswers()">Check Answers</button>
+
+<button onclick="location.reload()">Try Again</button>
+
+<div id="score"></div>
+
+<script>
+
+const questions=[
+
+{
+english:"I am interested in Korean culture.",
+answer:"한국 문화에 관심이 많아요"
+},
+
+{
+english:"I am not interested in sports.",
+answer:"스포츠에 관심이 없어요"
+},
+
+{
+english:"I am interested in traveling.",
+answer:"여행에 관심이 많아요"
+},
+
+{
+english:"I am happy when I eat.",
+answer:"저는 먹을 때 행복해요"
+},
+
+{
+english:"I eat popcorn when I watch a movie.",
+answer:"영화 볼 때 팝콘 먹어요"
+},
+
+{
+english:"I listen to music when I study.",
+answer:"공부할 때 음악을 들어요"
+},
+
+{
+english:"I study while listening to music.",
+answer:"음악을 들으면서 공부해요"
+},
+
+{
+english:"We talk while drinking coffee.",
+answer:"커피를 마시면서 이야기해요"
+},
+
+{
+english:"I eat dinner while watching TV.",
+answer:"TV를 보면서 저녁을 먹어요"
+},
+
+{
+english:"I talk on the phone while walking.",
+answer:"걸으면서 전화해요"
+}
+
+];
+
+const quiz=document.getElementById("quiz");
+
+questions.forEach((q,index)=>{
+
+quiz.innerHTML+=`
+<div class="question">
+
+<h3>${index+1}. ${q.english}</h3>
+
+<input id="q${index}" autocomplete="off">
+
+<p id="result${index}"></p>
+
+</div>
+`;
+
+});
+
+function clean(text){
+
+return text.replace(/\s+/g,"").trim();
+
+}
+
+function checkAnswers(){
+
+let score=0;
+
+questions.forEach((q,index)=>{
+
+const user=document.getElementById("q"+index).value;
+
+const result=document.getElementById("result"+index);
+
+if(clean(user)==clean(q.answer)){
+
+result.innerHTML="<span class='correct'>✅ Correct!</span>";
+
+score++;
+
+}else{
+
+result.innerHTML=
+"<span class='wrong'>❌ Correct Answer: "+q.answer+"</span>";
+
+}
+
+});
+
+document.getElementById("score").innerHTML=
+
+`Your Score: ${score} / ${questions.length}`;
+
+window.scrollTo({
+top:document.body.scrollHeight,
+behavior:"smooth"
+});
+
+}
+
+</script>
+
+</body>
+</html>
