@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Korean Writing Test</title>
+
+<style>
+body{
+    font-family:Arial;
+    background:#f2f2f2;
+    padding:40px;
+}
+
+.container{
+    max-width:700px;
+    margin:auto;
+    background:white;
+    padding:30px;
+    border-radius:10px;
+}
+
+input{
+    width:100%;
+    padding:12px;
+    font-size:18px;
+    margin:10px 0;
+}
+
+button{
+    padding:12px 20px;
+    font-size:18px;
+    cursor:pointer;
+}
+
+.correct{
+    color:green;
+}
+
+.wrong{
+    color:red;
+}
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+<h1>Korean Writing Test</h1>
+
+<div id="start">
+
+<p><b>Name</b></p>
+
+<input id="studentName">
+
+<button onclick="startTest()">Start Test</button>
+
+</div>
+
+<div id="quiz" style="display:none;">
+
+<h2 id="questionNumber"></h2>
+
+<p id="english"></p>
+
+<input id="answer">
+
+<button onclick="nextQuestion()">Next</button>
+
+</div>
+
+<div id="result" style="display:none;"></div>
+
+</div>
+
+<script>
+
+const questions=[
+
+["I am interested in Korean culture.","한국 문화에 관심이 많아요"],
+
+["I am not interested in sports.","스포츠에 관심이 없어요"],
+
+["I eat popcorn when I watch a movie.","영화 볼 때 팝콘 먹어요"],
+
+["I am happy when I eat.","저는 먹을 때 행복해요"],
+
+["I study while listening to music.","음악을 들으면서 공부해요"],
+
+["We talk while drinking coffee.","커피를 마시면서 이야기해요"],
+
+["I eat dinner while watching TV.","TV를 보면서 저녁을 먹어요"],
+
+["I talk on the phone while walking.","걸으면서 전화해요"]
+
+];
+
+let current=0;
+
+let score=0;
+
+function clean(text){
+return text.replace(/\s/g,"");
+}
+
+function startTest(){
+
+if(studentName.value==""){
+alert("Please enter your name.");
+return;
+}
+
+start.style.display="none";
+
+quiz.style.display="block";
+
+showQuestion();
+
+}
+
+function showQuestion(){
+
+questionNumber.innerHTML="Question "+(current+1)+" / "+questions.length;
+
+english.innerHTML=questions[current][0];
+
+answer.value="";
+
+answer.focus();
+
+}
+
+function nextQuestion(){
+
+if(clean(answer.value)==clean(questions[current][1])){
+
+score++;
+
+}
+
+current++;
+
+if(current==questions.length){
+
+finish();
+
+}else{
+
+showQuestion();
+
+}
+
+}
+
+function finish(){
+
+quiz.style.display="none";
+
+result.style.display="block";
+
+let percent=Math.round(score/questions.length*100);
+
+result.innerHTML=`
+
+<h2>${studentName.value}'s Result</h2>
+
+<h1>${score} / ${questions.length}</h1>
+
+<h2>${percent}%</h2>
+
+<button onclick="location.reload()">Try Again</button>
+
+`;
+
+}
+
+answer.addEventListener("keydown",function(e){
+
+if(e.key==="Enter"){
+
+nextQuestion();
+
+}
+
+});
+
+</script>
+
+</body>
+</html>
